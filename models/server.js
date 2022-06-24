@@ -9,7 +9,7 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.paths = {
-            // usuarios: '/api/usuarios'
+            usuarios: '/api/usuarios'
         }
 
         //Conectar a Base de Datos
@@ -28,7 +28,6 @@ class Server {
 
     middlewares() {
 
-
         // CORS
         this.app.use( cors() );
 
@@ -41,7 +40,7 @@ class Server {
     }
 
     routes() {
-        // this.app.use( this.paths.usuarios, require('../routes/usuarios') );
+        this.app.use( this.paths.usuarios, require('../routes/usuarios') );
     }
 
     listen() {
