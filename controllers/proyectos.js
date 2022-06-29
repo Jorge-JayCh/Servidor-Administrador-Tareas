@@ -9,18 +9,19 @@ const proyectosPost = async ( req, res = response ) => {
     try {
         // Crear un nuevo proyecto
         const proyecto = new Proyecto({ nombre });
+        // Guardar creador via JWT
+        proyecto.creador = req.usuario.uid;
+        // Guardar proyecto
         proyecto.save();
-        
+
         res.json({
             proyecto
         });
-
 
     } catch (error) {
         console.log(error);
         res.status(500).send('Hubo un error al crear un proyecto =( .');
     }
-
 }
 
 module.exports = {
