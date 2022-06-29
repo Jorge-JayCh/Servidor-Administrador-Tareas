@@ -20,7 +20,6 @@ const UsuarioSchema = Schema({
         type: Date,
         default: Date.now()
     }
-
 });
 
 module.exports = model( 'Usuario', UsuarioSchema );
