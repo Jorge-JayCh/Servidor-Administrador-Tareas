@@ -1,8 +1,10 @@
 const {request, response } = require('express');
 const bcryptjs = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+
+const { generarJWT } = require('../helpers/generar-jwt');
 
 const Usuario = require('../models/usuario');
+
 
 const usuariosGet = ( req, res = response ) => {
     res.json({
@@ -32,30 +34,18 @@ const usuariosPost = async ( req, res = response ) => {
         // Guardar el nuevo usuario
         await usuario.save();
         
-        // Crear y firmar el jWT
-        const payload = {
-            usuario: {
-                id: usuario.id
-            }
-        };
+        // Generar JWT
+        const token = await generarJWT( usuario.id );
 
-        // Firmar el JWT
-        jwt.sign( payload, process.env.PRIVATE_KEY, {
-            expiresIn: '4h'
-        }, ( error, token ) => {
-
-            if ( error ) throw error;
-            
-            // Mensaje de confirmación
-            res.json({
-                usuario,
-                token
-            });
+        // Mensaje de confirmación
+        res.json({
+            usuario,
+            token
         });
 
     } catch (error) {
         console.log(error);
-        res.status(400).send('Hubo un error =( .')
+        res.status(400).send('Hubo un error al crear usuario =( .')
     }
 }
 

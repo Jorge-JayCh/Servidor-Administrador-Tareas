@@ -5,6 +5,7 @@ const { generarJWT } = require('../helpers/generar-jwt');
 
 const Usuario = require('../models/usuario');
 
+
 const login = async ( req, res = response ) => {
     
     const { email, password } = req.body;
@@ -26,6 +27,8 @@ const login = async ( req, res = response ) => {
         }
         // Generar JWT
         const token = await generarJWT( usuario.id );
+
+        // Mensaje de confirmacion
         res.json({
             usuario,
             token

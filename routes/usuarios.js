@@ -24,6 +24,8 @@ router.post( '/',[
     validarCampos
 ], usuariosPost );
 
+
+
 router.put( '/',);
 
 router.delete( '/',);
